@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AdventOfCode.Commons;
+﻿using AdventOfCode.Commons;
 using MathNet.Numerics.Statistics;
 
 namespace AdventOfCode._2021
 {
     public class Day07 : AbstractDay
     {
-
         #region Init
 
         private static List<int> _input = new List<int>
@@ -24,8 +20,6 @@ namespace AdventOfCode._2021
         { }
 
         #endregion
-
-
 
         public int PhaseOne()
         {
@@ -46,7 +40,7 @@ namespace AdventOfCode._2021
         public int PhaseTwo()
         {
 #if !TEST
-            if (_input == null || _input.Count == 0)
+            if (_input.Count == 0)
                 _input = Parser.ParseInt(',');
 #endif
             int median = (int)Math.Round(_input.Select(x => (double)x).Median());

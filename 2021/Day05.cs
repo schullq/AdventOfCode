@@ -33,7 +33,7 @@ namespace AdventOfCode._2021
         public int PhaseOne()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
             ParseCoordinate();
 
@@ -104,7 +104,7 @@ namespace AdventOfCode._2021
 #if !TEST
 
             if (_input == null || _input.Count == 0)
-                _input = Parser.Parse();
+                _input = this.Parser.Parse();
 #endif
             ParseCoordinate();
 

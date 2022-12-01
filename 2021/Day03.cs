@@ -33,7 +33,7 @@ namespace AdventOfCode._2021
         public int PhaseOne()
         {
 #if !TEST
-            _input = Parser.Parse().Select(x => x.ToCharArray()).ToList();
+            _input = this.Parser.Parse().Select(x => x.ToCharArray()).ToList();
 #endif
             string gamma = "";
             string epsilon = "";
@@ -73,7 +73,7 @@ namespace AdventOfCode._2021
         public int PhaseTwo()
         {
 #if !TEST
-            _input ??= Parser.Parse().Select(x => x.ToCharArray()).ToList();
+            _input ??= this.Parser.Parse().Select(x => x.ToCharArray()).ToList();
 # endif
             var _inputCopy = new List<char[]>(_input);
             var _inputList = _input.Select(x => new string(x)).ToList();

@@ -9,51 +9,58 @@ namespace AdventOfCode.Commons
 {
     public class DataParser
     {
+        private static readonly string INPUT_PATH = @"Z:\Users\Quentin\Documents\Projets\AdventOfCode\input.txt";
         public string SessionCookie { get; set; }
         public string Input { get; set; }
 
         public DataParser()
         {
+            this.Input = File.ReadAllText(INPUT_PATH);
         }
 
         public DataParser(string sessionCookie)
         {
-            SessionCookie = sessionCookie;
+            this.SessionCookie = sessionCookie;
         }
 
         public List<int> ParseInt(char delim = '\n')
         {
-            return Input
-                .Split(delim, StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
+            return this.Input
+               .Split(delim, StringSplitOptions.RemoveEmptyEntries)
+               .Select(int.Parse)
+               .ToList();
         }
 
         public List<byte> ParseByte(char delim = '\n')
         {
-            return Input
-                .Split(delim, StringSplitOptions.RemoveEmptyEntries)
-                .Select(byte.Parse)
-                .ToList();
+            return this.Input.Split(delim, StringSplitOptions.RemoveEmptyEntries).Select(byte.Parse).ToList();
         }
 
-        public List<string> Parse(char delim = '\n')
+        public List<string> Parse(char delim = '\n', bool keepEmptyLines = false)
         {
-            return Input
-                .Split(delim, StringSplitOptions.RemoveEmptyEntries)
-                .ToList();
+            return this.Input
+               .Split(delim, keepEmptyLines ? StringSplitOptions.None : StringSplitOptions.RemoveEmptyEntries)
+               .ToList();
+        }
+
+        public List<char[]> ParseCharArray(char delim = '\n', bool keepEmptyLines = false)
+        {
+            return this.Input
+               .Split(delim, keepEmptyLines ? StringSplitOptions.None : StringSplitOptions.RemoveEmptyEntries)
+               .Select(x => x.ToCharArray())
+               .ToList();
         }
 
         public async Task FetchData(string url)
         {
-            if (string.IsNullOrEmpty(SessionCookie))
+            if (string.IsNullOrEmpty(this.SessionCookie))
                 throw new ArgumentNullException("SessionCookie");
             var baseAddress = new Uri(url);
             var cookieContainer = new CookieContainer();
-            using var handler = new HttpClientHandler {CookieContainer = cookieContainer};
-            using var client = new HttpClient(handler) {BaseAddress = baseAddress};
-            cookieContainer.Add(baseAddress, new Cookie("session", SessionCookie));
-            Input = await client.GetStringAsync(url);
+            using var handler = new HttpClientHandler { CookieContainer = cookieContainer };
+            using var client = new HttpClient(handler) { BaseAddress = baseAddress };
+            cookieContainer.Add(baseAddress, new Cookie("session", this.SessionCookie));
+            this.Input = await client.GetStringAsync(url);
         }
     }
 }

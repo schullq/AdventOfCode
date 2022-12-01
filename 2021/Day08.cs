@@ -66,18 +66,18 @@ namespace AdventOfCode._2021
         public int PhaseOne()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
-            PrepareDigits();
+            this.PrepareDigits();
             int answer = 0;
 
-            List<int> uniqueDigits = _digits.Where(x => _digits.Values.Count(y => y.Length == x.Value.Length) == 1)
+            List<int> uniqueDigits = this._digits.Where(x => this._digits.Values.Count(y => y.Length == x.Value.Length) == 1)
                 .Select(x => x.Key)
                 .ToList();
-            var uniqueDigitsValueSize = _digits.Where(x => uniqueDigits.Contains(x.Key))
+            var uniqueDigitsValueSize = this._digits.Where(x => uniqueDigits.Contains(x.Key))
                 .ToDictionary(x => x.Value.Length, y => y.Key);
 
-            foreach (var line in _digitsInput)
+            foreach (var line in this._digitsInput)
             {
                 var subline = line.GetRange(line.Count - 4, 4);
                 foreach (var d in subline)
@@ -94,11 +94,11 @@ namespace AdventOfCode._2021
         {
 #if !TEST
             if (_input == null || _input.Count == 0)
-                _input = Parser.Parse();
+                _input = this.Parser.Parse();
 #endif
-            PrepareDigits();
+            this.PrepareDigits();
 
-            return _digitsInput.Sum(x => BruteForce(x.GetRange(0, 10), x.GetRange(10, 4)));
+            return this._digitsInput.Sum(x => this.BruteForce(x.GetRange(0, 10), x.GetRange(10, 4)));
         }
 
         private int BruteForce(List<string> patterns, List<string> output)
@@ -138,7 +138,7 @@ namespace AdventOfCode._2021
         {
             foreach (var line in _input)
             {
-                _digitsInput.Add(line.Split(new[] {' ', '|'}, StringSplitOptions.RemoveEmptyEntries).ToList());
+                this._digitsInput.Add(line.Split(new[] {' ', '|'}, StringSplitOptions.RemoveEmptyEntries).ToList());
             }
         }
     }

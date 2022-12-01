@@ -23,21 +23,21 @@ namespace AdventOfCode._2021
         public long PhaseOne()
         {
 #if !TEST
-            _input = Parser.ParseInt(',');
+            _input = this.Parser.ParseInt(',');
 #endif
-            PrepareFishes();
+            this.PrepareFishes();
 
-            long nfish = _fishes.Values.Sum();
+            long nfish = this._fishes.Values.Sum();
             for (int i = 0; i < 80; i++)
             {
-                int newFish = _fishes[0];
+                int newFish = this._fishes[0];
                 for (int j = 1; j <= 8; j++)
                 {
-                    _fishes[j - 1] = _fishes[j];
+                    this._fishes[j - 1] = this._fishes[j];
                 }
 
-                _fishes[8] = newFish;
-                _fishes[6] += newFish;
+                this._fishes[8] = newFish;
+                this._fishes[6] += newFish;
                 nfish += newFish;
             }
 
@@ -48,21 +48,21 @@ namespace AdventOfCode._2021
         {
 #if !TEST
             if (_input == null || _input.Count == 0)
-                _input = Parser.ParseInt();
+                _input = this.Parser.ParseInt();
 #endif
-            PrepareFishes();
+            this.PrepareFishes();
 
-            long nfish = _fishes.Values.Sum();
+            long nfish = this._fishes.Values.Sum();
             for (int i = 0; i < 256; i++)
             {
-                int newFish = _fishes[0];
+                int newFish = this._fishes[0];
                 for (int j = 1; j <= 8; j++)
                 {
-                    _fishes[j - 1] = _fishes[j];
+                    this._fishes[j - 1] = this._fishes[j];
                 }
 
-                _fishes[8] = newFish;
-                _fishes[6] += newFish;
+                this._fishes[8] = newFish;
+                this._fishes[6] += newFish;
                 nfish += newFish;
             }
 
@@ -71,16 +71,16 @@ namespace AdventOfCode._2021
 
         private void PrepareFishes()
         {
-            _fishes = new Dictionary<int, int>();
+            this._fishes = new Dictionary<int, int>();
 
             for (byte i = 0; i <= 8; i++)
             {
-                _fishes[i] = 0;
+                this._fishes[i] = 0;
             }
 
             foreach (var n in _input)
             {
-                _fishes[n]++;
+                this._fishes[n]++;
             }
         }
     }

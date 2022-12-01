@@ -31,7 +31,7 @@ namespace AdventOfCode._2021
         public void ExecuteDay()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
             var aInput = _input
                 .Select(x => x.ToCharArray().Select(x => (int)x - '0').ToArray())
@@ -58,7 +58,7 @@ namespace AdventOfCode._2021
                 }
             }
 
-            PartA = answer;
+            this.PartA = answer;
 
             var sizes = new List<int>();
             foreach (var (x, y) in lowPoints)
@@ -93,7 +93,7 @@ namespace AdventOfCode._2021
                 sizes.Add(s);
             }
 
-            PartB = sizes
+            this.PartB = sizes
                 .OrderByDescending(c => c)
                 .Take(3)
                 .Aggregate((a, b) => a * b);

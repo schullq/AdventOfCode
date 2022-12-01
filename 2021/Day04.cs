@@ -39,7 +39,7 @@ namespace AdventOfCode._2021
 
         public int PhaseOne()
         {
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
             ParseBingo();
 
             foreach (var n in numbers)
@@ -66,7 +66,7 @@ namespace AdventOfCode._2021
         {
             if (_input == null || _input.Count == 0)
             {
-                _input = Parser.Parse();
+                _input = this.Parser.Parse();
                 ParseBingo();
             }
 

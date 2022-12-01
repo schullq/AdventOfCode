@@ -22,17 +22,15 @@ namespace AdventOfCode._{0}
 
         #endregion
 
-
-
         public void ExecuteDay()
         {
 #if !TEST
-            _input = Parser.Parse(FilePath);
+            _input = Parser.Parse();
 #endif
 
-            PartA = 0;
+            this.PartA = 0;
 
-            PartB = 0;
+            this.PartB = 0;
         }
 
     }

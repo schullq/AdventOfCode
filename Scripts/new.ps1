@@ -1,7 +1,8 @@
-﻿$day = $args[1]
-$year = $args[0]
+﻿param ($year, $day, $repo)
 
-$from = $args[2]+"\Commons\DayXX.cs"
-$to = $args[2]+"\"+$year+"\Day"+$day+".cs"
+$day = "{0:D2}" -f $day
+
+$from = $repo+"\Commons\DayXX.cs"
+$to = $repo+"\"+$year+"\Day"+$day+".cs"
 
 (Get-Content $from).replace('{0}',$year).replace('{1}',$day) | Out-File $to

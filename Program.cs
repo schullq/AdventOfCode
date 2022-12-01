@@ -7,18 +7,14 @@ namespace AdventOfCode
 {
     public class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            IConfiguration config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
 
-            var newDay = new _2021.Day10
+            var newDay = new _2022.Day01
             {
-                Parser = new DataParser(config["aoc_session"])
+                Parser = new DataParser()
             };
 
-            await newDay.Parser.FetchData(newDay.FilePath);
             newDay.ExecuteDay();
 
             Console.WriteLine("Answer 1: " + newDay.PartA);

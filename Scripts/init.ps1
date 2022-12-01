@@ -1,4 +1,12 @@
-$repo = "C:\Users\Quentin\source\repos\AdventOfCode\AdventOfCode"
-powershell $repo\Scripts\fetch-data.ps1 $args[0] $args[1] $repo
-# source /mnt/c/Users/Quentin/source/repos/AdventOfCode/AdventOfCode/Scripts/new.sh $1 $2 $repo
-# python3 -m webbrowser https://adventofcode.com/$2/day/$1
+param ($year, $day)
+
+if (!$day)
+{
+    $day = Get-Date -UFormat "%d"
+}
+
+$repo = "Z:\Users\Quentin\Documents\Projets\AdventOfCode"
+$url = "https://adventofcode.com/"+$year+"/day/"+$day
+powershell $repo\Scripts\fetch-data.ps1 -year $year -day $day -repo $repo
+powershell $repo\Scripts\new.ps1 -year $year -day $day -repo $repo
+Start-Process $url

@@ -24,7 +24,7 @@ namespace AdventOfCode._2021
         public int PhaseOne()
         {
 #if !TEST
-            _input = Parser.ParseInt(',');
+            _input = this.Parser.ParseInt(',');
 #endif
             int median = (int)Math.Round(_input.Select(x => (double)x).Median());
             int answer = 0;
@@ -41,7 +41,7 @@ namespace AdventOfCode._2021
         {
 #if !TEST
             if (_input.Count == 0)
-                _input = Parser.ParseInt(',');
+                _input = this.Parser.ParseInt(',');
 #endif
             int median = (int)Math.Round(_input.Select(x => (double)x).Median());
             int average = _input.Average() < (double) median

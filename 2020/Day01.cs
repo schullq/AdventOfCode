@@ -33,7 +33,7 @@ namespace AdventOfCode._2020
         public int PhaseOne()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
             return _input
                 .Select(int.Parse)
@@ -46,7 +46,7 @@ namespace AdventOfCode._2020
         {
 #if !TEST
             if (_input == null || _input.Count == 0)
-                _input = Parser.Parse();
+                _input = this.Parser.Parse();
 #endif
             return _input
                 .Select(int.Parse)

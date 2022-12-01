@@ -27,7 +27,7 @@ namespace AdventOfCode._2021
         public int PhaseOne()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
             int h = 0;
             int v = 0;
@@ -56,7 +56,7 @@ namespace AdventOfCode._2021
         public int PhaseTwo()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
             int h = 0;
             int v = 0;
@@ -90,7 +90,7 @@ namespace AdventOfCode._2021
         public int PhaseOneLinq()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
             var regex = new Regex(@"(?<dir>forward|down|up) (?<n>\d+)");
             var (depth, hor, aim) = _input
@@ -112,7 +112,7 @@ namespace AdventOfCode._2021
         public int PhaseTwoLinq()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
             var regex = new Regex(@"(?<dir>forward|down|up) (?<n>\d+)");
             var (depth, hor, aim) = _input

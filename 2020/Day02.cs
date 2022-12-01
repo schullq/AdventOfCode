@@ -30,10 +30,10 @@ namespace AdventOfCode._2020
         public void ExecuteDay()
         {
 #if !TEST
-            _input = Parser.Parse();
+            _input = this.Parser.Parse();
 #endif
             var regex = new Regex(@"(?<from>\d+)-(?<to>\d+) (?<l>\w): (?<pass>\w+)");
-            PartA = _input
+            this.PartA = _input
                 .Select(l => regex.Match(l))
                 .Select(r => (
                     f: int.Parse(r.Groups["from"].Value),
@@ -45,7 +45,7 @@ namespace AdventOfCode._2020
                     var count = x.p.ToCharArray().Count(y => y == x.l);
                     return count >= x.f && count <= x.t;
                 });
-            PartB = _input
+            this.PartB = _input
                 .Select(l => regex.Match(l))
                 .Select(r => (
                     p1: int.Parse(r.Groups["from"].Value) - 1,

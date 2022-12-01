@@ -29,15 +29,15 @@ namespace AdventOfCode._2021
 
         public void ExecuteDay()
         {
-            _input = Parser.ParseInt();
-            PartA = _input.Window(2).Count(x => x.Last() > x.First());
-            PartB = _input.Window(4).Count(x => x.Last() > x.First());
+            _input = this.Parser.ParseInt();
+            this.PartA = _input.Window(2).Count(x => x.Last() > x.First());
+            this.PartB = _input.Window(4).Count(x => x.Last() > x.First());
         }
 
         public int PhaseOne()
         {
 #if !TEST
-            _input = Parser.ParseInt();
+            _input = this.Parser.ParseInt();
 #endif
             int larger = 0;
 
@@ -51,7 +51,7 @@ namespace AdventOfCode._2021
         public int PhaseTwo()
         {
 #if !TEST
-            _input = Parser.ParseInt();
+            _input = this.Parser.ParseInt();
 #endif
             int larger = 0;
 
@@ -69,7 +69,7 @@ namespace AdventOfCode._2021
         public int PhaseOneLinq()
         {
 #if !TEST
-            _input = Parser.ParseInt();
+            _input = this.Parser.ParseInt();
 #endif
             return _input.Window(2).Count(x => x.Last() > x.First());
         }
@@ -77,7 +77,7 @@ namespace AdventOfCode._2021
         public int PhaseTwoLinq()
         {
 #if !TEST
-            _input = Parser.ParseInt();
+            _input = this.Parser.ParseInt();
 #endif
             return _input.Window(4).Count(x => x.Last() > x.First());
         }

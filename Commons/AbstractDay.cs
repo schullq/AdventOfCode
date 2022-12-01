@@ -19,7 +19,7 @@ namespace AdventOfCode.Commons
 
         protected AbstractDay(int day, int year)
         {
-            FilePath = $"https://adventofcode.com/{year}/day/{day}/input";
+            this.FilePath = $"https://adventofcode.com/{year}/day/{day}/input";
         }
     }
 }

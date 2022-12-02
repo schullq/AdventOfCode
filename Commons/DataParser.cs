@@ -9,7 +9,7 @@ namespace AdventOfCode.Commons
 {
     public class DataParser
     {
-        private static readonly string INPUT_PATH = @"Z:\Users\Quentin\Documents\Projets\AdventOfCode\input.txt";
+        private static readonly string INPUT_PATH = @"C:\Users\Quentin SCHULLER\Documents\Projets\AdventOfCode\input.txt";
         public string SessionCookie { get; set; }
         public string Input { get; set; }
 

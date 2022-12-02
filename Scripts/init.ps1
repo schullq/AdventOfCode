@@ -1,12 +1,18 @@
 param ($year, $day)
 
+if (!$year)
+{
+    $year = Get-Date -UFormat "%yyyy"
+}
+
 if (!$day)
 {
     $day = Get-Date -UFormat "%d"
 }
 
-$repo = "Z:\Users\Quentin\Documents\Projets\AdventOfCode"
+$currentPath = Split-Path $MyInvocation.MyCommand.Path -Parent
+$repo = Split-Path $currentPath -Parent
 $url = "https://adventofcode.com/"+$year+"/day/"+$day
-powershell $repo\Scripts\fetch-data.ps1 -year $year -day $day -repo $repo
-powershell $repo\Scripts\new.ps1 -year $year -day $day -repo $repo
+powershell $currentPath\fetch-data.ps1 -year $year -day $day -repo $repo
+powershell $currentPath\new.ps1 -year $year -day $day -repo $repo
 Start-Process $url

@@ -27,10 +27,12 @@ namespace AdventOfCode._{0}
 #if !TEST
             _input = Parser.Parse();
 #endif
+            int totalA = 0;
+            int totalB = 0;
 
-            this.PartA = 0;
 
-            this.PartB = 0;
+            this.PartA = totalA;
+            this.PartB = totalB;
         }
 
     }

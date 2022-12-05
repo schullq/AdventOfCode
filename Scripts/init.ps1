@@ -27,6 +27,6 @@ else
 $currentPath = Split-Path $MyInvocation.MyCommand.Path -Parent
 $repo = Split-Path $currentPath -Parent
 $url = "https://adventofcode.com/"+$year+"/day/"+$dayUrl
-& $currentPath\fetch-data.ps1 -year $year -day $day -repo $repo
+& $currentPath\fetch-data.ps1 -year $year -day $dayUrl -repo $repo
 & $currentPath\new.ps1 -year $year -day $day -repo $repo
 Start-Process $url

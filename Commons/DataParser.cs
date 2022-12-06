@@ -43,12 +43,19 @@ namespace AdventOfCode.Commons
                .ToList();
         }
 
-        public List<char[]> ParseCharArray(char delim = '\n', bool keepEmptyLines = false)
+        public List<char[]> ParseCharArrayList(char delim = '\n', bool keepEmptyLines = false)
         {
             return this.Input
                .Split(delim, keepEmptyLines ? StringSplitOptions.None : StringSplitOptions.RemoveEmptyEntries)
                .Select(x => x.ToCharArray())
                .ToList();
+        }
+
+        public List<char> ParseCharList()
+        {
+            return this.Input
+                .ToCharArray()
+                .ToList();
         }
 
         public async Task FetchData(string url)

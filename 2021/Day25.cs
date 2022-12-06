@@ -34,7 +34,7 @@ namespace AdventOfCode._2021
         public void ExecuteDay()
         {
 #if !TEST
-            _input = Parser.ParseCharArray();
+            _input = Parser.ParseCharArrayList();
 #endif
 
             static void Swap((int x, int y) a, (int x, int y) b)

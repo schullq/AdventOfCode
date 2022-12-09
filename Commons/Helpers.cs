@@ -9,25 +9,46 @@ namespace AdventOfCode.Commons
 {
     public static class Helpers
     {
-        private static readonly (int x, int y)[] Neighbors = new (int x, int y)[] { (0, 1), (0, -1), (1, 0), (-1, 0), };
-
-        public static IEnumerable<(int x, int y)> GetCartesianNeighbors(this (int x, int y) p) =>
+        private static readonly (int x, int y)[] Neighbors = { (0, 1), (0, -1), (1, 0), (-1, 0), };
+        private static readonly (int x, int y)[] Adjacent = { (-1, -1), (0, -1), (1, -1), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1), (1, 1) };
+        
+        /// <summary>
+        /// Return the neighbors on same line and column.
+        /// </summary>
+        /// <param name="p">The point coordinate.</param>
+        /// <returns>The neighbors coordinates.</returns>
+        public static IEnumerable<(int x, int y)> GetCartesianNeighbors(this (int x, int y) p) => 
             Neighbors.Select(d => (p.x + d.x, p.y + d.y));
 
+        /// <summary>
+        /// Return the neighbors on same line and column in the map.
+        /// </summary>
+        /// <typeparam name="T">The type parameter of the map.</typeparam>
+        /// <param name="p">The point coordinate.</param>
+        /// <param name="map">The map.</param>
+        /// <returns>The neighbors coordinates.</returns>
         public static IEnumerable<(int x, int y)> GetCartesianNeighbors<T>(this (int x, int y) p, List<List<T>> map) =>
             p.GetCartesianNeighbors().Where(q => q.y >= 0 && q.y < map.Count && q.x >= 0 && q.x < map[q.y].Count);
 
-        private static readonly (int x, int y)[] Adjacent = new (int x, int y)[]
-        {
-            (-1, -1), (0, -1), (1, -1), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1), (1, 1)
-        };
-
-        public static IEnumerable<(int x, int y)>
-            GetCartesianAdjacent(this (int x, int y) p, bool withCurrent = false) =>
+        /// <summary>
+        /// Return the adjacent coordinates of a point.
+        /// </summary>
+        /// <param name="p">The point coordinate.</param>
+        /// <param name="withCurrent">True if the point <param name="p"/> coordinates must be consider.</param>
+        /// <returns>The adjacent points coordinates</returns>
+        public static IEnumerable<(int x, int y)> GetCartesianAdjacent(this (int x, int y) p, bool withCurrent = false) =>
             withCurrent
                 ? Adjacent.Select(d => (p.x + d.x, p.y + d.y))
                 : Adjacent.Where(x => x != (0, 0)).Select(d => (p.x + d.x, p.y + d.y));
 
+        /// <summary>
+        /// Return the adjacent coordinates of a point in a map.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="p">The point coordinate.</param>
+        /// <param name="withCurrent">True if the point <param name="p"/> coordinates must be consider.</param>
+        /// <param name="map">The map.</param>
+        /// <returns>The adjacent points coordinates</returns>
         public static IEnumerable<(int x, int y)> GetCartesianAdjacent<T>(this (int x, int y) p,
             IReadOnlyList<IReadOnlyList<T>> map,
             bool withCurrent = false

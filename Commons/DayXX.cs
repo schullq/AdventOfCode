@@ -4,7 +4,7 @@ using AdventOfCode.Commons;
 
 namespace AdventOfCode._{0}
 {
-    public class Day{1} : AbstractDay
+    public partial class Day{1} : AbstractDay
     {
         #region Init
 

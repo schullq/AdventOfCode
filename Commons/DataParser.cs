@@ -57,17 +57,5 @@ namespace AdventOfCode.Commons
                 .ToCharArray()
                 .ToList();
         }
-
-        public async Task FetchData(string url)
-        {
-            if (string.IsNullOrEmpty(this.SessionCookie))
-                throw new ArgumentNullException("SessionCookie");
-            var baseAddress = new Uri(url);
-            var cookieContainer = new CookieContainer();
-            using var handler = new HttpClientHandler { CookieContainer = cookieContainer };
-            using var client = new HttpClient(handler) { BaseAddress = baseAddress };
-            cookieContainer.Add(baseAddress, new Cookie("session", this.SessionCookie));
-            this.Input = await client.GetStringAsync(url);
-        }
     }
 }

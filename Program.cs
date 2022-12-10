@@ -10,7 +10,7 @@ namespace AdventOfCode
         static void Main(string[] args)
         {
 
-            var newDay = new _2022.Day09
+            var newDay = new _2022.Day10
             {
                 Parser = new DataParser()
             };

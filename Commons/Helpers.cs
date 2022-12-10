@@ -55,7 +55,8 @@ namespace AdventOfCode.Commons
         ) =>
             p.GetCartesianAdjacent(withCurrent).Where(q => q.y >= 0 && q.y < map.Count && q.x >= 0 && q.x < map[q.y].Count);
 
-        public static (Dictionary<(int x, int y), int>, (int x, int y), int) Dijkstra((int x, int y) start,
+        public static (Dictionary<(int x, int y), int>, (int x, int y), int) Dijkstra(
+            (int x, int y) start,
             Func<(int x, int y), IEnumerable<((int x, int y) state, int cost)>> getNextStates,
             Func<Dictionary<(int x, int y), int>, (int x, int y), bool> endCondition
         )

@@ -61,31 +61,31 @@ namespace AdventOfCode.Commons
             p.GetCartesianAdjacent(withCurrent)
                 .Where(q => q.y >= 0 && q.y < map.Count && q.x >= 0 && q.x < map[q.y].Count);
 
-        public static (Dictionary<(int x, int y), int>, (int x, int y), int) Dijkstra(
+        public static (Dictionary<(int x, int y), int> paths, (int x, int y) end, int weight) Dijkstra(
             (int x, int y) start,
-            Func<(int x, int y), IEnumerable<((int x, int y) state, int cost)>> getNextStates,
-            Func<Dictionary<(int x, int y), int>, (int x, int y), bool> endCondition)
+            Func<(int x, int y), bool> endCondition,
+            Func<(int x, int y), IEnumerable<((int x, int y) state, int weight)>> getNextStates)
         {
             var dist = new Dictionary<(int x, int y), int>();
-            var pq = new UpdateablePriorityQueue<(int x, int y)>();
+            var pq = new PriorityQueue<(int x, int y), int>();
 
-            ((int x, int y) p, int cost) = (default, default);
+            ((int x, int y) p, int weight) = (start, default);
+            pq.Enqueue(p, weight);
             while (pq.Count != 0)
             {
-                pq.TryDequeue(out p, out cost);
+                do
+                {
+                    pq.TryDequeue(out p, out weight);
+                } while (pq.Count != 0 && dist.ContainsKey(p));
 
-                while (pq.Count != 0 && dist.ContainsKey(p))
-                    pq.TryDequeue(out p, out cost);
-
-                dist[p] = cost;
-                if (endCondition(dist, p))
+                if (endCondition(p))
                     break;
+                dist[p] = weight;
 
-                var t = getNextStates(p).Select(s => (s.state, cost + s.cost));
-                pq.EnqueueRange(getNextStates(p).Select(s => (s.state, cost + s.cost)));
+                pq.EnqueueRange(getNextStates(p).Select(s => (s.state, weight + s.weight)));
             }
 
-            return (dist, p, cost);
+            return (dist, p, weight);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace AdventOfCode.Commons
         public static int Bfs(
             (int x, int y) start,
             Func<(int x, int y), bool> endCondition,
-            Func<(int x, int y), int, IEnumerable<((int x, int y) state, int weight)>> getNextStates)
+            Func<(int x, int y), IEnumerable<((int x, int y) state, int weight)>> getNextStates)
         {
             var queue = new Queue<((int x, int y), int weight)>();
             var visited = new List<(int x, int y)>();
@@ -115,7 +115,7 @@ namespace AdventOfCode.Commons
                 if (endCondition((x, y)))
                     return weight;
 
-                foreach (var c in getNextStates((x, y), weight))
+                foreach (var c in getNextStates((x, y)).Select(s => (s.state, weight + s.weight)))
                 {
                     queue.Enqueue(c);
                 }

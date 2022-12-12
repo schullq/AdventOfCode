@@ -81,29 +81,29 @@ namespace AdventOfCode.Commons
                 if (endCondition(dist, p))
                     break;
 
+                var t = getNextStates(p).Select(s => (s.state, cost + s.cost));
                 pq.EnqueueRange(getNextStates(p).Select(s => (s.state, cost + s.cost)));
             }
 
             return (dist, p, cost);
         }
 
-        public static int BFS(List<List<int>> graph, 
+        /// <summary>
+        /// Search for the shortest path using BFS algorithm.
+        /// </summary>
+        /// <param name="start">The start coordinate</param>
+        /// <param name="endCondition">The end condition.</param>
+        /// <param name="getNextStates">A delegate returning the next states.</param>
+        /// <returns>The smallest weight.</returns>
+        public static int Bfs(
             (int x, int y) start,
-            (int x, int y) end)
+            Func<(int x, int y), bool> endCondition,
+            Func<(int x, int y), int, IEnumerable<((int x, int y) state, int weight)>> getNextStates)
         {
             var queue = new Queue<((int x, int y), int weight)>();
             var visited = new List<(int x, int y)>();
 
-            for (int y = 0; y < graph.Count; y++)
-            {
-                for (int x = 0; x < graph[y].Count; x++)
-                {
-                    if ((x, y) == start)
-                    {
-                        queue.Enqueue(((x, y), 0));
-                    }
-                }
-            }
+            queue.Enqueue(((start.x, start.y), 0));
 
             while (queue.Any())
             {
@@ -112,13 +112,12 @@ namespace AdventOfCode.Commons
                     continue;
                 visited.Add((x, y));
 
-                if ((x, y) == end)
+                if (endCondition((x, y)))
                     return weight;
 
-                foreach ((int dx, int dy) in (x, y).GetCartesianNeighbors(graph))
+                foreach (var c in getNextStates((x, y), weight))
                 {
-                    if (!visited.Contains((dx, dy)) && graph[dy][dx] - graph[y][x] <= 1)
-                        queue.Enqueue(((dx, dy), weight + 1));
+                    queue.Enqueue(c);
                 }
             }
 

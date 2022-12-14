@@ -12,17 +12,16 @@ if (!$day)
 }
 else
 {
-    if ($day.Length == 1)
+    if ($day / 10 -eq 0)
     {
         $dayUrl = $day
         $day = '0' + $day
     }
     else
     {
-        $dayUrl = $day.TrimStart('0')
+        $dayUrl = $day.ToString().TrimStart('0')
     }
 }
-
 
 $currentPath = Split-Path $MyInvocation.MyCommand.Path -Parent
 $repo = Split-Path $currentPath -Parent

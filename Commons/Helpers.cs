@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +61,31 @@ namespace AdventOfCode.Commons
             bool withCurrent = false) =>
             p.GetCartesianAdjacent(withCurrent)
                 .Where(q => q.y >= 0 && q.y < map.Count && q.x >= 0 && q.x < map[q.y].Count);
+
+        public static IDictionary<(int x, int y), IEnumerable<(int x, int y)>> GetLinearAdjacent<T>(
+            this (int x, int y) p,
+            IReadOnlyList<IReadOnlyList<T>> map)
+        {
+            IDictionary<(int x, int y), IEnumerable<(int x, int y)>> directions =
+                new Dictionary<(int x, int y), IEnumerable<(int x, int y)>>();
+            
+            foreach (var q in Adjacent.Where(x => x != (0, 0)))
+            {
+                IList<(int x, int y)> direction = new List<(int x, int y)>();
+
+                (int i, int j) = (q.y, q.x);
+                while (i >= 0 && i < map.Count && j >= 0 && j < map[i].Count)
+                {
+                    direction.Add((i, j));
+                    i += q.y;
+                    j += q.x;
+                }
+
+                directions[(q.x, q.y)] = direction;
+            }
+
+            return directions;
+        }
 
         public static (Dictionary<(int x, int y), int> paths, (int x, int y) end, int weight) Dijkstra(
             (int x, int y) start,
@@ -123,5 +149,6 @@ namespace AdventOfCode.Commons
 
             return 0;
         }
+
     }
 }
